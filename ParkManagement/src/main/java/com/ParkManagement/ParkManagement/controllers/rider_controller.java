@@ -20,8 +20,8 @@ public class rider_controller {
         this.rider_serv = rider_serv;
     }
     @PostMapping("/add_rider")
-    public String addRider(@RequestBody Rider rider){
-        int result = rider_serv.insertRider(rider);
+    public String addRider(@RequestBody Rider rider,@RequestHeader(value = "secteur") String secteur){
+        int result = rider_serv.insertRider(rider,secteur);
         return result == 1 ? "Insertion succesfuly " : "failed to insert";
     }
     @PostMapping("/update_rider")
@@ -35,8 +35,8 @@ public class rider_controller {
         return result == 1 ? "Delete succesfuly " : "delete to update";
     }
     @GetMapping("/allriders")
-    public List<Rider> allRiders(){
-        return rider_serv.selectAllRider();
+    public List<Rider> allRiders(@RequestHeader(value = "secteur") String secteur){
+        return rider_serv.selectAllRider(secteur);
     }
 
 }

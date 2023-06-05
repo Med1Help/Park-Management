@@ -35,8 +35,8 @@ public class affectation_controller {
         return result == 1 ? "Delete succesfuly " : "delete to update";
     }
     @GetMapping("/allaffectations")
-    public List<Affectation> allManagers(){
-        return affect_serv.selectAllAffectation();
+    public List<Affectation> allManagers(@RequestHeader(value = "secteur") String secteur){
+        return affect_serv.selectAllAffectation(secteur);
     }
     @GetMapping("/check_validity")
     public Boolean check(@RequestHeader("id") int idAffect){

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface car_repo {
 
-    int insertCar(Car car);
+    int insertCar(Car car,String secteur);
     int updateCar(String update , String reference , Object[] params);
     int deleteCar(String reference,Object[] params);
     List<Car> selectCar(String reference, Object[] params);

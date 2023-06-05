@@ -20,8 +20,8 @@ public class car_controller {
         this.car_serv = car_serv;
     }
     @PostMapping("/add_car")
-    public String addManager(@RequestBody Car car){
-        int result = car_serv.insertCar(car);
+    public String addManager(@RequestBody Car car,@RequestHeader(value = "secteur") String secteur){
+        int result = car_serv.insertCar(car,secteur);
         return result == 1 ? "Insertion succesfuly " : "failed to insert";
     }
     @PostMapping("/update_car")
@@ -35,8 +35,8 @@ public class car_controller {
         return result == 1 ? "Delete succesfuly " : "delete to update";
     }
     @GetMapping("/allcars")
-    public List<Car> allManagers(){
-        return car_serv.selectAllCar();
+    public List<Car> allManagers(@RequestHeader(value = "secteur") String secteur){
+        return car_serv.selectAllCar(secteur);
     }
 
 }

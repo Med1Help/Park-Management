@@ -3,6 +3,7 @@ package com.ParkManagement.ParkManagement.service;
 import com.ParkManagement.ParkManagement.models.Lead_manager;
 import com.ParkManagement.ParkManagement.models.Manager;
 import com.ParkManagement.ParkManagement.models.Rider;
+import com.ParkManagement.ParkManagement.models.Sequence;
 import com.ParkManagement.ParkManagement.repositories.manager_repo;
 import com.ParkManagement.ParkManagement.repositories.rider_repo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,20 @@ import java.util.List;
 public class rider_service implements rider_repo{
     @Autowired
     JdbcTemplate jdbcTemplate;
+    public int getId(){
+        String sql = "select rider_id_seq.nextval from dual";
+        Sequence seq = jdbcTemplate.queryForObject(sql,BeanPropertyRowMapper.newInstance(Sequence.class));
+        System.out.println(seq.getNextVal());
+        return seq.getNextVal();
+    }
     @Override
-    public int insertRider(Rider rider) {
+    public int insertRider(Rider rider,String sec) {
         // TO-DO query sequence to set Id
-        int id = 6;
+        if(!(sec.equals("1")|sec.equals("2")|sec.equals("3")))return 0;
+        int id = this.getId();
         rider.setId(id);
-        String sql = "INSERT INTO riders Values(?,?,?,?,?,?,?,?)";
-        int result = jdbcTemplate.update(sql,rider.getId(),rider.getName(),rider.getE_mail(),rider.getManager_id(),rider.getSecteur(),rider.getPermis(),rider.getPoints(),rider.getPhone_number());
+        String sql = "INSERT INTO rider"+sec+" Values(?,?,?,?,?,?,?,?)";
+        int result = jdbcTemplate.update(sql,id,rider.getName(),rider.getE_mail(),rider.getManager_id(),rider.getSecteur(),rider.getPermis(),rider.getPoints(),rider.getPhone_number());
         return result;
     }
 
@@ -47,8 +55,8 @@ public class rider_service implements rider_repo{
         return riders;
     }
 
-    public List<Rider> selectAllRider() {
-        String sql = "SELECT * From riders";
+    public List<Rider> selectAllRider(String sec) {
+        String sql = "SELECT * From rider"+sec;
         List<Rider> riders = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Rider.class));
         return riders;
     }

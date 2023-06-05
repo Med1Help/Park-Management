@@ -47,8 +47,8 @@ public class affectation_service implements affectation_repo {
         return affectations;
     }
 
-    public List<Affectation> selectAllAffectation() {
-        String sql = "SELECT * From affectation";
+    public List<Affectation> selectAllAffectation(String sec) {
+        String sql = "select * from affectation where ID_CAR in ( select id from cars where secteur = 'sec"+sec+"' ) and ID_RIDER in (select id from riders where secteur='sec"+sec+"')";
         List<Affectation> affectations = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Affectation.class));
         return affectations;
     }

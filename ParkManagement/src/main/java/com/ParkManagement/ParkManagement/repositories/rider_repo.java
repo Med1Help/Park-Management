@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface rider_repo {
 
-    int insertRider(Rider rider);
+    int insertRider(Rider rider,String sec);
     int updateRider(String update , String reference , Object[] params);
     int deleteRider(String reference,Object[] params);
     List<Rider> selectRider(String reference, Object[] params);
