@@ -18,23 +18,29 @@ public class manager_controller {
         this.manager_serv = manager_serv;
     }
     @PostMapping("/add_manager")
-    public String addManager(@RequestBody Manager manager){
-        int result = manager_serv.insertManager(manager);
+    public String addManager(@RequestBody Manager manager,@RequestHeader(value = "secteur") String secteur ){
+        int result = manager_serv.insertManager(manager,secteur);
         return result == 1 ? "Insertion succesfuly " : "failed to insert";
     }
     @PostMapping("/update_manager")
-    public String updateManager(@RequestBody myObject object ){
-        int result = manager_serv.updateManager(object.getUpdate(), object.getReference(), object.getParams());
+    public String updateManager(@RequestBody myObject object ,@RequestHeader(value = "secteur") String secteur ){
+        System.out.println(object.getUpdate()+" "+object.getReference()+" "+object.getParams()[0]+" "+object.getParams()[1]);
+        int result = manager_serv.updateManager(object.getUpdate(), object.getReference(), object.getParams(),secteur);
         return result == 1 ? "Update succesfuly " : "failed to update";
     }
     @PostMapping("/delete")
-    public String deleteManager(@RequestBody Object[] params){
-        int result = manager_serv.deleteManager("e_mail",params);
+    public String deleteManager(@RequestBody Object[] params,@RequestHeader(value = "secteur") String secteur ){
+        int result = manager_serv.deleteManager("e_mail",params,secteur);
         return result == 1 ? "Delete succesfuly " : "delete to update";
     }
     @GetMapping("/allmanagers")
-    public List<Manager> allManagers(){
-        return manager_serv.selectAllManager();
+    public List<Manager> allManagers(@RequestHeader(value = "secteur") String secteur ){
+       System.out.print("request from secteur: "+secteur);
+        return manager_serv.selectAllManager(secteur);
+    }
+    @PostMapping("/manager")
+    public List<Manager> manager(@RequestBody myObject object,@RequestHeader(value = "secteur") String secteur){
+        return manager_serv.selectManager(object.getReference(), object.getParams(),secteur);
     }
 
 }

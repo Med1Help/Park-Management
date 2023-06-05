@@ -10,7 +10,13 @@ public class Manager {
 
     public Manager() {
     }
-
+    public Manager(String name, String e_mail, String secteur, String phone_number) {
+        this.name = name;
+        this.e_mail = e_mail;
+        this.lead_id = 1;
+        this.secteur = secteur;
+        this.phone_number = phone_number;
+    }
     public Manager(String name, String e_mail, int lead_id, String secteur, String phone_number) {
         this.name = name;
         this.e_mail = e_mail;
