@@ -58,7 +58,7 @@ public class car_service implements car_repo {
 
     public List<Car> selectAllCar(String sec) {
         if(!(sec.equals("1")|sec.equals("2")|sec.equals("3")))return new ArrayList<>();
-        String sql = "SELECT * From manager"+sec;
+        String sql = "SELECT * From car"+sec;
         List<Car> cars = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Car.class));
         return cars;
     }

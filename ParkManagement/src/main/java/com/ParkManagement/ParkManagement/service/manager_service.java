@@ -62,4 +62,9 @@ public class manager_service implements manager_repo{
         List<Manager> managers = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Manager.class));
         return managers;
     }
+    public List<Manager> selectAllManagerAdmin() {
+        String sql = "SELECT * From managers";
+        List<Manager> managers = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Manager.class));
+        return managers;
+    }
 }

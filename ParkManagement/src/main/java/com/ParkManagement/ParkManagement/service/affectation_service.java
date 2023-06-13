@@ -3,6 +3,7 @@ package com.ParkManagement.ParkManagement.service;
 import com.ParkManagement.ParkManagement.models.Affectation;
 import com.ParkManagement.ParkManagement.models.Lead_manager;
 import com.ParkManagement.ParkManagement.models.Manager;
+import com.ParkManagement.ParkManagement.models.Sequence;
 import com.ParkManagement.ParkManagement.repositories.affectation_repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -16,13 +17,18 @@ import java.util.List;
 public class affectation_service implements affectation_repo {
     @Autowired
     JdbcTemplate jdbcTemplate;
+    public int getId(){
+        String sql = "select affect_id_seq.nextval from dual";
+        Sequence seq = jdbcTemplate.queryForObject(sql,BeanPropertyRowMapper.newInstance(Sequence.class));
+        System.out.println(seq.getNextVal());
+        return seq.getNextVal();
+    }
     @Override
     public int insertAffectation(Affectation affect) {
         // TO-DO query sequence to set Id
-        int id = 6;
-        affect.setId(id);
-        String sql = "INSERT INTO affectation Values(?,?,?,?,?)";
-        int result = jdbcTemplate.update(sql,affect.getId(),affect.getId_car(),affect.getId_rider(),affect.getDate_debut(),affect.getDate_fin());
+        int id = this.getId();
+        String sql = "INSERT INTO affectation Values(?,?,?,?,?,?)";
+        int result = jdbcTemplate.update(sql,id,affect.getId_car(),affect.getId_rider(),affect.getDate_debut(),affect.getDate_fin(),affect.getSecteur());
         return result;
     }
 
@@ -48,8 +54,9 @@ public class affectation_service implements affectation_repo {
     }
 
     public List<Affectation> selectAllAffectation(String sec) {
-        String sql = "select * from affectation where ID_CAR in ( select id from cars where secteur = 'sec"+sec+"' ) and ID_RIDER in (select id from riders where secteur='sec"+sec+"')";
+        String sql = "select * from affectation where secteur='sec"+sec+"'";
         List<Affectation> affectations = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Affectation.class));
+        System.out.print("affectations of "+sec+" : "+affectations);
         return affectations;
     }
     public boolean checkAffectationValidity(int idAffect){

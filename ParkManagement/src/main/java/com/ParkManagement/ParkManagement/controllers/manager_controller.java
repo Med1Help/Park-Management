@@ -38,6 +38,11 @@ public class manager_controller {
        System.out.print("request from secteur: "+secteur);
         return manager_serv.selectAllManager(secteur);
     }
+    @GetMapping("/allmanagersAdmin")
+    public List<Manager> selectAllManagerAdmin(){
+        System.out.print("request from ");
+        return manager_serv.selectAllManagerAdmin();
+    }
     @PostMapping("/manager")
     public List<Manager> manager(@RequestBody myObject object,@RequestHeader(value = "secteur") String secteur){
         return manager_serv.selectManager(object.getReference(), object.getParams(),secteur);

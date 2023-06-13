@@ -8,15 +8,17 @@ public class Affectation {
     int id_rider;
     Date date_debut;
     Date date_fin;
+    String secteur;
 
     public Affectation() {
     }
 
-    public Affectation(int id_car, int id_rider, Date date_debut, Date date_fin) {
-        this.id_car = id_car;
-        this.id_rider = id_rider;
+    public Affectation(int id_car, int id_rider, Date date_debut, Date date_fin,String secteur) {
+        this.id_car     = id_car;
+        this.id_rider   = id_rider;
         this.date_debut = date_debut;
-        this.date_fin = date_fin;
+        this.date_fin   = date_fin;
+        this.secteur    = secteur;
     }
 
     public int getId() {
@@ -68,5 +70,13 @@ public class Affectation {
                 ", date_debut=" + date_debut +
                 ", date_fin=" + date_fin +
                 '}';
+    }
+
+    public void setSecteur(String secteur) {
+        this.secteur = secteur;
+    }
+
+    public String getSecteur() {
+        return this.secteur;
     }
 }
