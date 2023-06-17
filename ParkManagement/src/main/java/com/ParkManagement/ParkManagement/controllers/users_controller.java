@@ -57,6 +57,7 @@ public class users_controller {
         if(!token.isEmpty()){
             resp.setToken(token);
             resp.setSecteur(myUser.getSecteur());
+            resp.setRole(myUser.getRole());
         }
         return resp ;
     }

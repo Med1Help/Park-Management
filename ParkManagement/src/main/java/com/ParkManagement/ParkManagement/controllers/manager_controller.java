@@ -6,6 +6,7 @@ import com.ParkManagement.ParkManagement.service.lead_manager_service;
 import com.ParkManagement.ParkManagement.service.manager_service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,14 +30,14 @@ public class manager_controller {
         return result == 1 ? "Update succesfuly " : "failed to update";
     }
     @PostMapping("/delete")
-    public String deleteManager(@RequestBody Object[] params,@RequestHeader(value = "secteur") String secteur ){
+    public String deleteManager(@RequestBody Object[] params,@RequestHeader(value = "secteur") String secteur){
         int result = manager_serv.deleteManager("e_mail",params,secteur);
         return result == 1 ? "Delete succesfuly " : "delete to update";
     }
     @GetMapping("/allmanagers")
-    public List<Manager> allManagers(@RequestHeader(value = "secteur") String secteur ){
-       System.out.print("request from secteur: "+secteur);
-        return manager_serv.selectAllManager(secteur);
+    public List<Manager> allManagers(@RequestHeader(value = "secteur") String secteur ,@RequestHeader(value = "role") String role ){
+       System.out.print("request from secteur: "+secteur+" with role "+role);
+        return role.equals("admin") ? manager_serv.selectAllManager(secteur): new ArrayList<>();
     }
     @GetMapping("/allmanagersAdmin")
     public List<Manager> selectAllManagerAdmin(){
