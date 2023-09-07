@@ -1,1 +1,7 @@
-# Park-Management
+Projet de Gestion d'un Parc de Véhicules pour une Société de Transport
+
+Ce projet a pour objectif de rationaliser la gestion du parc de véhicules d'une entreprise de transport, laquelle dispose de multiples sièges et parcs de véhicules répartis dans différentes zones. De plus, les clients de cette société ont la possibilité d'accéder aux services depuis diverses zones géographiques, ce qui entraîne une augmentation du temps de réponse des serveurs et des bases de données.
+
+Pour résoudre ces défis, nous avons adopté une approche basée sur une architecture de microservices, permettant ainsi de mieux gérer la complexité de l'entreprise tout en améliorant la réactivité. En ce qui concerne la base de données, nous avons opté pour une conception distribuée pour garantir une performance optimale et une évolutivité en adéquation avec les besoins.
+
+Ce projet repose sur plusieurs technologies essentielles. Du côté du backend, nous utilisons Spring Boot pour sa robustesse et sa capacité à gérer efficacement les microservices. En tant que base de données, Oracle a été sélectionné pour sa fiabilité et ses performances. Pour l'interface utilisateur web, nous avons choisi Angular pour sa flexibilité et sa richesse en fonctionnalités. En ce qui concerne les applications mobiles, nous développons une solution avec Flutter, garantissant ainsi une expérience utilisateur homogène sur diverses plateformes.
